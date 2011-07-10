@@ -1,0 +1,69 @@
+<!DOCTYPE html5>
+<html>
+<head>
+  <link rel="stylesheet" href="http://code.jquery.com/qunit/git/qunit.css" type="text/css" media="screen" />
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+  <script src="http://code.jquery.com/qunit/git/qunit.js"></script>
+  <script src="tofu.js"></script>
+  <script>
+  $(document).ready(function(){
+    test("Simple object test", function() {
+      equals("I am a Berliner", tofu("{Ich} am {ein} Berliner", {Ich: "I", ein: "a"}));
+    });
+
+    module("Nested object values");
+    test("Simple test", function() {
+      var expected_message = "Welcome to Hong Kong! The current temperature is 20 degrees Celcius."
+        , template = "Welcome to { place.name }! The current temperature is { place.temperature.magnitude } degrees { place.temperature.unit }."
+        , rendered_message = tofu(template, { 
+          place: {
+            name: "Hong Kong",
+            temperature: {
+              magnitude: 20,
+              unit : "Celcius"
+            }
+          }
+        });
+      equals(expected_message, rendered_message);
+    });
+    test("Multiple occurances", function(){
+      var expected_message = "A rose is a rose is a rose"
+        , rendered_message = tofu("A { flower } is a { flower } is a { flower }", { flower: "rose" });
+
+      equals(expected_message, rendered_message);
+    });
+
+    module("Misc.");
+    test("Make sure the outgoing values are the same as the incoming values", function(){
+      var expected_message = "What does a cat do? It meows!",
+          template = "What does a { animal.species.name } do? It { animal.species.action }!",
+          values = { animal: {
+            species: {
+              name: "cat",
+              action: "meows"
+            },
+            some_other_stuff: "should still be here!"
+          } };
+
+      equals(expected_message, tofu(template, values));
+      equals(template, "What does a { animal.species.name } do? It { animal.species.action }!");
+      deepEqual(values, { animal: {
+        species: {
+          name: "cat",
+          action: "meows"
+        },
+        some_other_stuff: "should still be here!"
+      } });
+    });
+  });
+  </script>
+</head>
+<body>
+  <h1 id="qunit-header">QUnit</h1>
+  <h2 id="qunit-banner"></h2>
+  <div id="qunit-testrunner-toolbar"></div>
+  <h2 id="qunit-userAgent"></h2>
+  <ol id="qunit-tests"></ol>
+  <div id="qunit-fixture">test markup, will be hidden</div>
+</body>
+</html>

@@ -33,6 +33,27 @@
       equals(expected_message, rendered_message);
     });
 
+    module("Fancy key names");
+    test("Invalid JavaScript variable name", function(){
+      var expected_message = "Tofu is yummy."
+        , rendered_message = tofu("{ #@! } is { *** }.", { "#@!": "Tofu", "***": "yummy" });
+
+      equals(expected_message, rendered_message);
+    });
+    test("Accented Latin characters", function(){
+      var expected_message = "Tofu is yummy."
+        , rendered_message = tofu("{ á } is { ǽ }.", { "á": "Tofu", "ǽ": "yummy" });
+
+      equals(expected_message, rendered_message);
+    });
+    test("Asian characters", function(){
+      var expected_message = "Hong Kong is part of China."
+        , rendered_message = tofu("{ 香港 } is part of { 中國 }.", { "香港": "Hong Kong", "中國": "China" });
+
+      equals(expected_message, rendered_message);
+    });
+
+
     module("Misc.");
     test("Make sure the outgoing values are the same as the incoming values", function(){
       var expected_message = "What does a cat do? It meows!",

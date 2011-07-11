@@ -21,6 +21,7 @@ and it will return `Welcome to Hong Kong! The current temperature is 20 degrees 
 
 ## Gotchas
 There aren't really any gotchas, but I will just put it here.
+
 1. I have made the key names for the values object is very forgiving, so you can write something like `tofu("{ *** }", { "***": "Hello, World!"})`. It should be able to accept any string (including symbols and non-Latin characters) as long as it doesn't include spaces or the closing curly brace (i.e. `}`). The reasoning is pretty obvious so I am not going to state it here. You can look at the source code for the exact regular expression. My empirical research shows that you won't have to worry about it 99.9999999% of the time. As a general rule of thumb, pretend like you are accessing a JavaScript object using dot notation and you should be fine.
 
 ## Why should you use Tofu?

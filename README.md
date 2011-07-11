@@ -5,7 +5,7 @@ Tofu takes two parameters: a string as template, and a object as values. Variabl
 
 `tofu("{ Ich } am { ein } Berliner", { Ich: "I", ein: "a" });` will return `I am a Berliner`.
 
-You can use access nested object values through the similar dot notation that JavaScript uses, so you can do something like
+You can use access nested object values through the familar dot notation that JavaScript uses, so you can do something like
 
     tofu("Welcome to { place.name }! The current temperature is { place.temperature.magnitude } degrees { place.temperature.unit }.", { 
       place: {

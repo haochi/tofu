@@ -1,10 +1,9 @@
-function tofu(template, values){
-  return template.replace(/{ *([^} ]+) *}/g, function(a, match){
-    var levels = match.split("."),
-        item = values;
-    for(var i=0;i<levels.length;){
-      item = item[levels[i++]];
-    }
-    return item;
+function tofu(template, values) {
+  return template.replace(/{ *([^} ]+) *}/g, function(value, match) {
+    value = values;
+    match.replace(/[^.]+/g, function(match) {
+      value = value[match];
+    });
+    return value;
   });
 }
